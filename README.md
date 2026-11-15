@@ -104,8 +104,14 @@ Instead of decoding the whole genome just to find where a short DNA read (patter
 2. **Narrow the Row Range `[start_row .. end_row]`:**  
    We start with all rows (`0` to $N-1$) as candidates, and read our pattern `"ANA"` from right to left (`'A'`, then `'N'`, then `'A'`):
    * At each letter `c`, we update our row range using the exact same LF-mapping logic:
-     $$\text{new\_start} = C[c] + \text{Occ}(c, \text{start\_row} - 1)$$
-     $$\text{new\_end} = C[c] + \text{Occ}(c, \text{end\_row}) - 1$$
+
+$$
+\mathrm{new\_start} = C[c] + \mathrm{Occ}(c, \mathrm{start\_row} - 1)
+$$
+
+$$
+\mathrm{new\_end} = C[c] + \mathrm{Occ}(c, \mathrm{end\_row}) - 1
+$$
    * **Step 1 (`'A'`):** Narrows `[0..6]` down to rows `[1..3]` (all rows starting with `'A'`).
    * **Step 2 (`'N'`):** Checks how many `'N'`s appear in `L[1..3]` (there are two!) and jumps to their rows in `F`: `[5..6]` (rows starting with `"NA"`).
    * **Step 3 (`'A'`):** Checks how many `'A'`s appear in `L[5..6]` (two!) and jumps to their rows in `F`: **`[2..3]`** (rows starting with `"ANA"`).
